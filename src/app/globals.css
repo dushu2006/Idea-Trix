@@ -3,10 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --paper: #f5f0e5;
-  --ink: #141b27;
-  --ember: #c4391b;
-  --line: #d9cfb8;
+  --void: #080f19;
+  --beam: #22d3ee;
+  --mint: #a7f3e8;
 }
 
 html {
@@ -14,49 +13,32 @@ html {
 }
 
 body {
+  background: var(--void);
   text-rendering: optimizeLegibility;
-  background-image: radial-gradient(rgba(20, 27, 39, 0.055) 1px, transparent 1px);
-  background-size: 26px 26px;
+  overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--ember);
-  color: #fbf8f1;
+  background: rgba(34, 211, 238, 0.35);
+  color: #f1f5f9;
 }
 
 :focus-visible {
-  outline: 2px solid var(--ember);
+  outline: 2px solid var(--beam);
   outline-offset: 3px;
   border-radius: 3px;
 }
 
-/* ---- editorial helpers ---- */
-
-/** Ruled-ledger dotted leader between a label and its value. */
-.leader-dots {
-  background-image: linear-gradient(to right, rgba(20, 27, 39, 0.4) 1.5px, transparent 1.5px);
-  background-size: 7px 1.5px;
-  background-repeat: repeat-x;
-  background-position: bottom;
+/* Thin dark scrollbars for chip rails. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
-/** Blueprint grid backdrop for feature panels. */
-.blueprint {
-  background-image:
-    linear-gradient(rgba(20, 27, 39, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(20, 27, 39, 0.07) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-/** Perforated ticket edge for the registration slip. */
-.ticket-edge {
-  background-image: linear-gradient(90deg, var(--line) 45%, transparent 45%);
-  background-size: 12px 2px;
-  background-repeat: repeat-x;
-  height: 2px;
-}
-
-/** Accessible accordion panel animation (no layout-property animation). */
+/** Accessible accordion panel animation (grid-rows, no layout props). */
 .acc-panel {
   display: grid;
   grid-template-rows: 0fr;
@@ -70,22 +52,39 @@ body {
   min-height: 0;
 }
 
-/** Ticker divider. */
-@keyframes ideatrix-marquee {
-  to {
-    transform: translateX(-50%);
-  }
+/* Neural scene node labels + svg text. */
+.neural-scene text {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  user-select: none;
 }
-.marquee-track {
-  animation: ideatrix-marquee 36s linear infinite;
+.neural-scene .dest {
+  cursor: pointer;
+  outline: none;
+}
+.neural-scene .dest-core,
+.neural-scene .dest-ring,
+.neural-scene .dest-halo,
+.neural-scene .dest-label,
+.neural-scene .route-seg {
+  transition:
+    opacity 0.35s ease,
+    r 0.35s ease;
+}
+/* r is animatable as a CSS property in Chromium/modern browsers; the
+   transition above is a progressive enhancement over instant updates. */
+
+/* Soft vignette to seat content over the scene. */
+.scene-vignette {
+  background: radial-gradient(
+    ellipse 120% 90% at 50% 45%,
+    transparent 55%,
+    rgba(8, 15, 25, 0.55) 100%
+  );
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .marquee-track {
-    animation: none;
   }
   *,
   *::before,

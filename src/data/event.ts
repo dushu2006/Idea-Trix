@@ -9,11 +9,15 @@
 
 export const EVENT = {
   name: 'IDEATRIX',
-  edition: 'Vol. 01',
+  attribution: 'AI & DS Department × Matrix Club',
   kind: 'Ideathon',
-  tagline: 'Turn a problem into a presentable idea.',
+  tagline: 'Ideas connect here.',
   description:
-    'Teams of up to two students pick a problem, shape a concept, and present it as a PowerPoint.',
+    'Explore an ideathon where students turn creative thinking into meaningful ideas and potential solutions.',
+  aboutHeading: 'Every idea begins with a question.',
+  aboutBody:
+    'IDEATRIX gives students a platform to identify problems, develop creative concepts, and communicate innovative ideas through structured PowerPoint presentations.',
+  registerHeading: 'Ready to turn your idea into something real?',
   organisers: [
     { name: 'Department of Artificial Intelligence and Data Science', short: 'AI & DS' },
     { name: 'Matrix Club', short: 'Matrix Club' },
@@ -54,7 +58,7 @@ export type SectionId =
 export const SECTIONS: { id: SectionId; index: string; label: string }[] = [
   { id: 'hero', index: '00', label: 'Home' },
   { id: 'about', index: '01', label: 'About' },
-  { id: 'details', index: '02', label: 'Details' },
+  { id: 'details', index: '02', label: 'Event Details' },
   { id: 'journey', index: '03', label: 'Journey' },
   { id: 'schedule', index: '04', label: 'Schedule' },
   { id: 'guidelines', index: '05', label: 'Guidelines' },
@@ -63,7 +67,7 @@ export const SECTIONS: { id: SectionId; index: string; label: string }[] = [
   { id: 'register', index: '08', label: 'Register' },
 ];
 
-/** Links shown in the desktop header; the mobile menu lists every section. */
+/** Links shown in the desktop header; the menu, chips, and rail list every section. */
 export const HEADER_NAV: SectionId[] = ['about', 'details', 'journey', 'schedule', 'faq'];
 
 export interface JourneyStage {
@@ -171,7 +175,7 @@ export const GUIDELINES: Guideline[] = [
     note: 'Ideas are presented as a PowerPoint.',
   },
   {
-    title: `Report at ${EVENT.time.reporting}`,
+    title: `Participants should report at ${EVENT.time.reporting}`,
     note: 'Reach the venue before reporting time.',
   },
 ];
@@ -186,13 +190,13 @@ export interface Certificate {
 export const CERTIFICATES: Certificate[] = [
   {
     id: 'digital',
-    title: 'Digital participation certificates',
+    title: 'Digital Participation Certificates',
     body: 'Digital participation certificates will be sent to participants’ registered email addresses.',
     footnote: 'Use an email you actually check when you register.',
   },
   {
     id: 'physical',
-    title: 'Physical certificates for the top five',
+    title: 'Physical Certificates',
     body: 'Physical certificates will be awarded only to the top five teams.',
     footnote: 'Awarded on the day of the event.',
   },
@@ -214,7 +218,7 @@ export const FAQS: Faq[] = [
   },
   {
     id: 'who',
-    q: 'Who is organising it?',
+    q: 'Who is organizing it?',
     a: 'The Department of AI & DS and Matrix Club at Vignan’s Institute of Information Technology (VIIT), Visakhapatnam.',
     tags: ['about', 'organisers', 'matrix', 'viit'],
   },

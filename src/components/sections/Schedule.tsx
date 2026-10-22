@@ -1,73 +1,61 @@
-import { CalendarClock } from 'lucide-react';
-
 import { SCHEDULE } from '@/data/event';
-import { Reveal } from '@/components/ui/Reveal';
-import { SectionShell } from '@/components/ui/SectionShell';
+import { JourneySection } from '@/components/ui/JourneySection';
 import { Stamp } from '@/components/ui/Stamp';
 import { cn } from '@/lib/utils';
+
+const ACCENT = '#38BDF8';
 
 export function Schedule() {
   const confirmed = SCHEDULE.filter((s) => s.status === 'confirmed').length;
 
   return (
-    <SectionShell
+    <JourneySection
       id="schedule"
-      index="04"
       kicker="Run of day"
       title="Schedule"
       lede={
-        <>
-          <p>
-            {confirmed} of {SCHEDULE.length} entries are confirmed so far — the day opens with
-            reporting and closes at 4:00 PM. The full programme will be announced closer to the
-            event.
-          </p>
-          <p className="mt-3 flex items-center gap-2 text-[14px] font-semibold text-ink">
-            <CalendarClock size={17} aria-hidden="true" className="text-ember-deep" />
-            Reporting at 8:45 AM sharp.
-          </p>
-        </>
+        <p>
+          {confirmed} of {SCHEDULE.length} entries are confirmed — the day opens with reporting
+          and closes at 4:00 PM. The full programme will be announced closer to the event.
+        </p>
       }
     >
-      <ol className="relative ml-2 border-l-2 border-dashed border-ink/25 pl-0 md:ml-6">
+      <ol className="relative border-l-2 border-dashed border-white/15 pl-0">
         {SCHEDULE.map((item, i) => (
-          <li key={`${item.title}-${i}`} className="relative pb-10 pl-10 pr-2 last:pb-0">
+          <li
+            key={`${item.title}-${i}`}
+            className="relative grid gap-1 pb-8 pl-8 last:pb-0 sm:grid-cols-[92px_1fr] sm:gap-4"
+          >
             <span
               aria-hidden="true"
               className={cn(
-                'absolute -left-[9px] top-1.5 h-4 w-4 rounded-full border-[3px]',
-                item.status === 'confirmed'
-                  ? 'border-ember bg-paper'
-                  : 'border-ink/30 bg-paper',
+                'absolute -left-[9px] top-1 h-4 w-4 rounded-full border-[3px] border-panel',
+                item.status === 'confirmed' ? '' : 'opacity-60',
               )}
+              style={{ backgroundColor: item.status === 'confirmed' ? ACCENT : '#3E687B' }}
             />
-            <Reveal
-              delay={i * 0.05}
-              className="grid gap-1 md:grid-cols-[140px_1fr_auto] md:items-start md:gap-6"
+            <p
+              className={cn(
+                'font-display text-xl font-semibold leading-tight',
+                item.status === 'tba' && 'text-mute',
+              )}
             >
-              <p
-                className={cn(
-                  'font-display text-2xl font-semibold leading-none md:pt-0.5',
-                  item.status === 'tba' && 'text-muted',
-                )}
-              >
-                {item.time}
-              </p>
-              <div>
-                <h3 className="text-xl font-semibold leading-snug">{item.title}</h3>
-                <p className="mt-1 text-[15px] text-inksoft">{item.note}</p>
-              </div>
-              <div className="pt-1">
+              {item.time}
+            </p>
+            <div>
+              <h3 className="text-[16px] font-semibold leading-snug">{item.title}</h3>
+              <p className="mt-0.5 text-[14px] text-fog">{item.note}</p>
+              <div className="mt-2">
                 {item.status === 'confirmed' ? (
                   <Stamp tone="moss">Confirmed</Stamp>
                 ) : (
-                  <Stamp>To be announced</Stamp>
+                  <Stamp tone="gold">To be announced</Stamp>
                 )}
               </div>
-            </Reveal>
+            </div>
           </li>
         ))}
       </ol>
-    </SectionShell>
+    </JourneySection>
   );
 }
